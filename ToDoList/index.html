@@ -4,24 +4,28 @@
 <head>
     <meta charset="utf-8" />
     <title>ToDoList</title>
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    <div class="js-clock">
-        <h1>00:00</h1>
-    </div>
-    <form class="js-form form">
-        <input type="text" placeholder="What is your name?" />
-    </form>
-    <h4 class="js-greetings greetings"></h4>
-
-    <form class="js-toDoForm">
-        <input type="text" placeholder="Write a to do" />
-    </form>
-    <ul class="js-toDoList">
-
-    </ul>
+    <section>
+        <div class="js-clock">
+            <h1>00:00</h1>
+        </div>
+        <form class="js-name name">
+            <input type="text" placeholder="What is your name?" 
+            onfocus="this.placeholder=''"
+            onblur="this.placeholder='What is your name?'" />
+        </form>
+        <h4 class="js-greetings greetings"></h4>
+        <form class="js-toDoForm">
+            <input type="text" placeholder="Write a to do" 
+            onfocus="this.placeholder=''"
+            onblur="this.placeholder='Write a to do'"/>
+        </form>
+        <ul class="js-toDoList"></ul>
+    </section>
+    
     <script src="js/clock.js"></script>
     <script src="js/greeting.js"></script>
     <script src="js/todo.js"></script>

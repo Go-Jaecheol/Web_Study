@@ -1,0 +1,88 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+html {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    background-image: url("../images/background.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+
+section {
+    text-align: center;
+    position: absolute;
+    color: white;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    margin: auto;
+}
+
+.js-clock {
+    font-size: 600%;
+    cursor: default;
+    user-select: none;
+}
+
+.js-name {
+    margin-bottom: 100px;
+}
+
+.js-greetings {
+    font-size: 200%;
+}
+
+input[type="text"] {
+    background: 0;
+    border: 0;
+    border-bottom: 2px solid #ffffff;
+    color: #ffffff;
+    font-size: 2.5rem;
+    text-align: center;
+}
+input::placeholder {
+    color: #ffffff;
+    text-align: center;
+}
+input:focus {
+    outline: none;
+}
+
+.name,
+.greetings {
+    display : none
+}
+
+.showing {
+    display : block
+}
+
+
