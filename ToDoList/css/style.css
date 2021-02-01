@@ -76,6 +76,30 @@ input:focus {
     outline: none;
 }
 
+.js-toDoList {
+    width: 400px;
+    margin: auto;
+}
+
+li {
+    list-style: none;
+    display: flex;
+    position: relative;
+    align-items: center;
+    font-size: 30px;
+    padding: 20px 16px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+button {
+    background: 0;
+    border: 0;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
 .name,
 .greetings {
     display : none
