@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>ToDoList</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 </head>
 
 <body>
@@ -23,7 +24,13 @@
             onfocus="this.placeholder=''"
             onblur="this.placeholder='Write a to do'"/>
         </form>
-        <ul class="js-toDoList"></ul>
+        <div class="list-title">Active</div>
+        <ul class="js-toDoList toDoList"></ul>
+        <div class="list-title">Completed</div>
+        <ul class="js-checkedToDoList checked"></ul>
+        <div class="clear">
+            <span class="js-clear-button">Clear Completed</span>
+        </div>
     </section>
     
     <script src="js/clock.js"></script>

@@ -1,66 +1,169 @@
 const toDoForm = document.querySelector(".js-toDoForm"),
     toDoInput = toDoForm.querySelector("input"),
-    toDoList = document.querySelector(".js-toDoList");
+    toDoList = document.querySelector(".js-toDoList"),
+    checkedToDoList = document.querySelector(".js-checkedToDoList"),
+    clearBtn = document.querySelector(".js-clear-button");
 
 const TODOS_LS = "toDos";
+const CHECKED_LS = "checkedToDos"
+
 let toDos = [];
+let checkedToDos = [];
 let idNumbers = 1;
 
 function deleteToDo(event) {
     const btn = event.target;
     const li = btn.parentNode;
-    toDoList.removeChild(li);
-    const cleanToDos = toDos.filter(function(toDo) {
-        return toDo.id !== parseInt(li.id);
-    });
-    toDos = cleanToDos
-    saveToDos();
+    const listName = event.path[2];
+    if (listName.classList.contains('toDoList')){
+        toDoList.removeChild(li);
+        cleanToDos(toDos, li.id);
+        saveToDos(TODOS_LS);
+    } else {
+        checkedToDoList.removeChild(li);
+        cleanToDos(checkedToDos, li.id);
+        saveToDos(CHECKED_LS);
+    }
 }
 
-function saveToDos() {
-    localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
+function cleanToDos(TODOS, id){
+    const cleanToDos = TODOS.filter(function(todo){
+        return JSON.stringify(todo.id) !== id;
+    })
+    switch(TODOS){
+        case toDos:
+            toDos = cleanToDos;
+            break;
+        case checkedToDos:
+            checkedToDos = cleanToDos;
+            break;
+    }
 }
 
-function paintToDo(text) {
+function selectedToDo(TODOS, id){
+    const clickedToDo = TODOS.filter(function(toDo){
+        return JSON.stringify(toDo.id) === id;
+    })
+    switch(TODOS){
+        case toDos:
+            checkedToDos = checkedToDos.concat(clickedToDo);
+            break;
+        case checkedToDos:
+            toDos = toDos.concat(clickedToDo);
+            break;
+    }
+}
+
+function unCheckToDo(event){
+    const btn = event.target;
+    const li = btn.parentNode;
+    const checkBtn = li.querySelector(".fa-check-square");
+    const line = li.querySelector("#strikeout");
+
+    checkBtn.classList.remove("fa-check-square");
+    checkBtn.classList.add("fa-square");
+    checkBtn.removeEventListener("click", unCheckToDo);
+    checkBtn.addEventListener("click", checkToDo);
+    li.removeChild(line);
+    toDoList.appendChild(li);
+    
+    selectedToDo(checkedToDos, li.id);
+    cleanToDos(checkedToDos, li.id);
+    saveToDos(TODOS_LS);
+    saveToDos(CHECKED_LS);
+}
+
+function checkToDo(event) {
+    const btn = event.target;
+    const li = btn.parentNode;
+    const checkBtn = li.querySelector(".fa-square");
+    const line = document.createElement("div");
+
+    checkBtn.classList.remove("fa-square");
+    checkBtn.classList.add("fa-check-square");
+    checkBtn.removeEventListener("click", checkToDo);
+    checkBtn.addEventListener("click", unCheckToDo);
+    li.appendChild(line);
+    line.id = "strikeout";
+    checkedToDoList.appendChild(li);
+
+    selectedToDo(toDos, li.id);
+    cleanToDos(toDos, li.id);
+    saveToDos(TODOS_LS);
+    saveToDos(CHECKED_LS);
+}
+
+function saveToDos(LS) {
+    if(LS === TODOS_LS) {
+        localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
+    } else {
+        localStorage.setItem(CHECKED_LS, JSON.stringify(checkedToDos));
+    }
+}
+
+function paintToDo(text, LS) {
     const li = document.createElement("li");
-    const delBtn = document.createElement("button");
+    const delBtn = document.createElement("icon");
+    const checkBtn = document.createElement("icon");
+    const checkedBtn = document.createElement("icon");
     const span = document.createElement("span");
     const newId = idNumbers;
-    idNumbers += 1;
-    delBtn.innerText = "❌";
-    delBtn.addEventListener("click", deleteToDo);
-    span.innerText = text;
-    li.appendChild(delBtn);
-    li.appendChild(span);
-    li.id = newId;
-    toDoList.appendChild(li);
+    const line = document.createElement("div");
     const toDoObj = {
         text: text,
         id: newId
     };
-    toDos.push(toDoObj);
-    saveToDos();
+
+    idNumbers += 1;
+    span.innerHTML = text;
+    checkBtn.classList.add('far', 'fa-square');
+    checkedBtn.classList.add('far', "fa-check-square");
+    delBtn.classList.add('far', 'fa-trash-alt');
+    checkBtn.addEventListener("click", checkToDo);
+    checkedBtn.addEventListener("click", unCheckToDo);
+    delBtn.addEventListener("click", deleteToDo);
+    delBtn.id = "delBtn";
+    line.id = "strikeout";
+    li.id = newId;
+
+    if(LS === TODOS_LS) {
+        li.appendChild(checkBtn);
+        li.appendChild(span);
+        li.appendChild(delBtn);
+        toDoList.appendChild(li);
+        toDos.push(toDoObj);
+        saveToDos(TODOS_LS);
+    } else {
+        li.appendChild(checkedBtn);
+        li.appendChild(span);
+        li.appendChild(delBtn);
+        li.appendChild(line);
+        checkedToDoList.appendChild(li);
+        checkedToDos.push(toDoObj);
+        saveToDos(CHECKED_LS);
+    }
 }
 
 function handleSubmit(event) {
     event.preventDefault();
     const currentValue = toDoInput.value;
-    paintToDo(currentValue);
+    paintToDo(currentValue, TODOS_LS);
     toDoInput.value = "";
 }
 
-function loadToDos() {
-    const loadedToDos = localStorage.getItem(TODOS_LS);
+function loadToDos(LS) {
+    const loadedToDos = localStorage.getItem(LS);
     if(loadedToDos !== null) {
         const parsedToDos = JSON.parse(loadedToDos);
         parsedToDos.forEach(function(toDo){
-            paintToDo(toDo.text);
+            paintToDo(toDo.text, LS);
         })
     }
 }
 
 function init() {
-    loadToDos();
+    loadToDos(TODOS_LS);
+    loadToDos(CHECKED_LS);
     toDoForm.addEventListener("submit", handleSubmit);
 }
 
