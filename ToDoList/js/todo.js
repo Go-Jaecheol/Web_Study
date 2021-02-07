@@ -1,8 +1,7 @@
 const toDoForm = document.querySelector(".js-toDoForm"),
     toDoInput = toDoForm.querySelector("input"),
     toDoList = document.querySelector(".js-toDoList"),
-    checkedToDoList = document.querySelector(".js-checkedToDoList"),
-    clearBtn = document.querySelector(".js-clear-button");
+    checkedToDoList = document.querySelector(".js-checkedToDoList");
 
 const TODOS_LS = "toDos";
 const CHECKED_LS = "checkedToDos"
