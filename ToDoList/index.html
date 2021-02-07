@@ -10,7 +10,7 @@
 
 <body>
     <section>
-        <div class="js-clock">
+        <div class="js-clock clock">
             <h1>00:00</h1>
         </div>
         <form class="js-name name">
@@ -19,15 +19,18 @@
             onblur="this.placeholder='What is your name?'" />
         </form>
         <h4 class="js-greetings greetings"></h4>
-        <form class="js-toDoForm">
+
+        <form class="js-toDoForm toDoForm">
             <input type="text" placeholder="Write a to do" 
             onfocus="this.placeholder=''"
             onblur="this.placeholder='Write a to do'"/>
         </form>
-        <div class="list-title">Active</div>
-        <ul class="js-toDoList toDoList"></ul>
-        <div class="list-title">Completed</div>
-        <ul class="js-checkedToDoList checked"></ul>
+        <div class="body_column todo_column">
+            <div class="list-title">Active</div>
+            <ul class="js-toDoList toDoList"></ul>
+            <div class="list-title">Completed</div>
+            <ul class="js-checkedToDoList checked"></ul>
+        </div>
     </section>
     
     <script src="js/clock.js"></script>

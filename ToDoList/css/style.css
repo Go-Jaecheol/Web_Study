@@ -1,3 +1,5 @@
+@import "todo.css";
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -47,13 +49,17 @@ section {
 }
 
 .js-clock {
-    font-size: 600%;
+    font-size: 500%;
     cursor: default;
     user-select: none;
 }
 
+h1 {
+    margin-bottom: 70px;
+}
+
 .js-name {
-    margin-bottom: 100px;
+    margin-bottom: 60px;
 }
 
 .js-greetings {
@@ -70,34 +76,11 @@ input[type="text"] {
 }
 input::placeholder {
     color: #ffffff;
-    text-align: center;
+    text-align: left;
+    padding-left: 10px;
 }
 input:focus {
     outline: none;
-}
-
-.js-toDoList {
-    width: 400px;
-    margin: auto;
-}
-
-li {
-    list-style: none;
-    display: flex;
-    position: relative;
-    align-items: center;
-    font-size: 30px;
-    padding: 20px 16px;
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 6px;
-    margin-top: 10px;
-}
-
-button {
-    background: 0;
-    border: 0;
-    font-size: 20px;
-    margin-right: 10px;
 }
 
 .name,
@@ -108,5 +91,3 @@ button {
 .showing {
     display : block
 }
-
-
