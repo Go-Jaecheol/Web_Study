@@ -1,4 +1,5 @@
 @import "todo.css";
+@import url('https://fonts.googleapis.com/css2?family=Texturina:wght@500&display=swap');
 
 @keyframes fadeIn {
     from {
@@ -33,7 +34,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+    font-family: 'Texturina', serif;
 }
 
 section {
